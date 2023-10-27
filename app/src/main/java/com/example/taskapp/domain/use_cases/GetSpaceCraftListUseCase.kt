@@ -1,11 +1,9 @@
 package com.example.taskapp.domain.use_cases
 
-import com.example.democleanmvvm.common.Resource
-import com.example.taskapp.domain.model.Craft
+import com.example.taskapp.common.Resource
 import com.example.taskapp.domain.model.SpaceCrafts
 import com.example.taskapp.domain.repository.SpaceCraftsRepo
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn

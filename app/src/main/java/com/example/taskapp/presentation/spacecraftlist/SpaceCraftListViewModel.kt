@@ -2,7 +2,7 @@ package com.example.taskapp.presentation.spacecraftlist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.democleanmvvm.common.Resource
+import com.example.taskapp.common.Resource
 import com.example.taskapp.domain.use_cases.GetSpaceCraftListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher

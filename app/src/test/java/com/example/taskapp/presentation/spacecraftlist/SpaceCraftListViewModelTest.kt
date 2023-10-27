@@ -2,7 +2,7 @@ package com.example.taskapp.presentation.spacecraftlist
 
 import app.cash.turbine.test
 import app.cash.turbine.turbineScope
-import com.example.democleanmvvm.common.Resource
+import com.example.taskapp.common.Resource
 import com.example.taskapp.domain.model.Craft
 import com.example.taskapp.domain.model.SpaceCrafts
 import com.example.taskapp.domain.use_cases.GetSpaceCraftListUseCase
@@ -54,5 +54,27 @@ class SpaceCraftListViewModelTest{
             }
         }
     }
+
+    @ExperimentalCoroutinesApi
+    @Test
+    fun getSpaceCraftError() = runTest {
+        val mSpaceCraftState = SpaceCraftState(error = " ")
+        Mockito.`when`(mGetSpaceCraftListUseCase.invoke(corountineRule)).thenReturn(flowOf(
+            Resource.Error(
+            message  = mSpaceCraftState.error)))
+
+        viewModel = SpaceCraftListViewModel(getSpaceCraftListUseCase = mGetSpaceCraftListUseCase, ioDispatcher = corountineRule)
+
+
+        turbineScope {
+            viewModel.list.test {
+                skipItems(1)
+                println("${viewModel.list.value.error} --> $mSpaceCraftState")
+                assertEquals(awaitItem(),mSpaceCraftState)
+            }
+        }
+    }
+
+
 
 }
