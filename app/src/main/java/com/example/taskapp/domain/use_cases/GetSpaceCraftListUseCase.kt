@@ -7,8 +7,9 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import javax.inject.Inject
 
-class GetSpaceCraftListUseCase(private val spaceCraftsRepo: SpaceCraftsRepo) {
+class GetSpaceCraftListUseCase @Inject constructor(private val spaceCraftsRepo: SpaceCraftsRepo) {
 
     operator fun invoke(mDispatcher: CoroutineDispatcher): Flow<Resource<SpaceCrafts>> = flow {
         emit(Resource.Loading())
