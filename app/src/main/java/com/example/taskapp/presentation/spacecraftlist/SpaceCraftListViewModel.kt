@@ -14,37 +14,35 @@ import javax.inject.Inject
 import javax.inject.Named
 
 @HiltViewModel
-class SpaceCraftListViewModel @Inject constructor(private val getSpaceCraftListUseCase: GetSpaceCraftListUseCase,
-    @Named("io") private val ioDispatcher: CoroutineDispatcher) :
+class SpaceCraftListViewModel @Inject constructor(
+    private val getSpaceCraftListUseCase: GetSpaceCraftListUseCase,
+    @Named("io") private val ioDispatcher: CoroutineDispatcher
+) :
     ViewModel() {
-        private val _list = MutableStateFlow<SpaceCraftState>(SpaceCraftState())
-    val list : StateFlow<SpaceCraftState> = _list
+    private val _list = MutableStateFlow(SpaceCraftState())
+    val list: StateFlow<SpaceCraftState> = _list
 
     init {
         getSpaceCraftList()
     }
 
-    private fun getSpaceCraftList(){
+    private fun getSpaceCraftList() {
         viewModelScope.launch {
             getSpaceCraftListUseCase(ioDispatcher).collectLatest {
-                when(it) {
-                    is Resource.Loading-> {
+                when (it) {
+                    is Resource.Loading -> {
                         _list.value = SpaceCraftState(isLoading = true)
                     }
-                    is Resource.Success-> {
+
+                    is Resource.Success -> {
                         _list.value = SpaceCraftState(data = it.data)
                     }
 
-                    is Resource.Error-> {
+                    is Resource.Error -> {
                         _list.value = SpaceCraftState(error = it.message.toString())
                     }
-
-
-
                 }
             }
         }
-
-
     }
 }

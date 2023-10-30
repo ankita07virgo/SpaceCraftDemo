@@ -12,7 +12,7 @@ import dagger.hilt.components.SingletonComponent
 object DomainModule {
 
     @Provides
-    fun providGetSpaceCraftListUseCase(spaceCraftsRepo: SpaceCraftsRepo) : GetSpaceCraftListUseCase {
+    fun provideGetSpaceCraftListUseCase(spaceCraftsRepo: SpaceCraftsRepo) : GetSpaceCraftListUseCase {
         return GetSpaceCraftListUseCase(spaceCraftsRepo)
     }
 }

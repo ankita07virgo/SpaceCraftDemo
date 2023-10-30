@@ -3,7 +3,6 @@ package com.example.taskapp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -52,27 +51,34 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 private fun SpaceCraftListScreen(mSpaceCraftListViewModel: SpaceCraftListViewModel = hiltViewModel()) {
-   val state by mSpaceCraftListViewModel.list.collectAsState()
-    if(state.isLoading){
-        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center){
+    val state by mSpaceCraftListViewModel.list.collectAsState()
+    if (state.isLoading) {
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
             CircularProgressIndicator()
         }
     }
 
-    if(state.error.isNotBlank()){
-        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center){
-            Text(text = state.error.toString())
+    if (state.error.isNotBlank()) {
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            Text(text = state.error)
         }
     }
 
     state.data?.let {
-       
+
         val mSpaceCraftList = it.spaceCrafts
-        LazyColumn(modifier = Modifier.fillMaxWidth().padding(10.dp)){
-            itemsIndexed(mSpaceCraftList){ _, mCraft ->
-                Card(modifier = Modifier
-                    .padding(8.dp).fillMaxWidth())
-                     {
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(10.dp)
+        ) {
+            itemsIndexed(mSpaceCraftList) { _, mCraft ->
+                Card(
+                    modifier = Modifier
+                        .padding(8.dp)
+                        .fillMaxWidth()
+                )
+                {
                     Text(
                         text = mCraft.name,
                         modifier = Modifier.padding(8.dp),
@@ -85,18 +91,5 @@ private fun SpaceCraftListScreen(mSpaceCraftListViewModel: SpaceCraftListViewMod
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    TaskAppTheme {
-        Greeting("Android")
-    }
-}
+

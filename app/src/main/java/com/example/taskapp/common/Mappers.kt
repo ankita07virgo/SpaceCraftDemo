@@ -6,9 +6,9 @@ import com.example.taskapp.domain.model.Craft
 import com.example.taskapp.domain.model.SpaceCrafts
 
 fun SpaceCraftsDTO.toDomain(): SpaceCrafts {
-    return SpaceCrafts(spaceCrafts = craftsDTO?.map{it.toDomain()}?: emptyList())
+    return SpaceCrafts(spaceCrafts = craftsDTO.map{it.toDomain()})
 }
 
 fun CraftDTO.toDomain(): Craft {
-    return Craft(id = id?:0,name = name?:"")
+    return Craft(id = id,name = name)
 }
